@@ -1,124 +1,250 @@
 <template>
-<div id="recipe-view">
-  <div class="container my-5">
-    <div class="description-section my-2">
-      <div class="section-heading d-flex justify-content-between">
-        <div class="h3">
-          Description
+  <div id="recipe-view">
+
+    <div class="container mt-4 mb-2">
+
+      <div class="mt-2 text-left">
+        <a href="/"><i class="fa-solid fa-arrow-left"></i> Back</a>
+      </div>
+
+      <div
+        class="d-flex justify-content-between flex-wrap align-items-center mb-2"
+      >
+        <div class="recipe-title text-left w-xs-100">
+          <div class="h3 mb-0">{{ recipe.name }}</div>
+          <div v-if="recipe.author">
+            By
+            <span class="text-muted"
+              ><a :href="recipe.author.url" target="_blank">{{
+                recipe.author.name
+              }}</a></span
+            >
+          </div>
         </div>
-        <div class="control-options">
-          <button
-            id="description-toggle"
-            class="btn btn-link text-decoration-none shadow-none hover-opacity-60" style="color: inherit;"
-            @click="isHidden.description = !isHidden.description"
-          >
-            <i v-bind:class="{ 'fa-angle-down': isHidden.description, 'fa-angle-up': !isHidden.description }" class="fa-solid"></i>
-          </button>
+        <div class="recipe-time text-middle text-muted w-xs-100">
+          <i class="fa-solid fa-fire-burner"></i> {{ recipe.totalTime }}
         </div>
       </div>
-      <div class="section-content p text-left mt-2" v-show="!isHidden.description">
-        {{ recipe.description }}
+
+      <div class="text-left mb-4">
+        <a :href="recipe.url">Link to Original</a>
+      </div>
+
+      <div class="my-4">
+        <img
+          :src="recipe.image"
+          class="w-100 rounded"
+          style="max-height: 400px; object-fit: cover"
+        />
+      </div>
+
+      <div class="recipe-section description-section my-2">
+        <div class="section-heading d-flex justify-content-between">
+          <div class="h4">Description</div>
+          <div class="control-options">
+            <button
+              id="description-toggle"
+              class="
+                btn btn-link
+                text-decoration-none
+                shadow-none
+                hover-opacity-60
+              "
+              style="color: inherit"
+              @click="isHidden.description = !isHidden.description"
+            >
+              <i
+                v-bind:class="{
+                  'fa-angle-down': isHidden.description,
+                  'fa-angle-up': !isHidden.description,
+                }"
+                class="fa-solid"
+              ></i>
+            </button>
+          </div>
+        </div>
+        <div
+          class="section-content p text-left mt-2"
+          v-show="!isHidden.description"
+        >
+          {{ recipe.description }}
+        </div>
+      </div>
+
+      <div class="recipe-section ingredients-section my-2">
+        <div class="section-heading d-flex justify-content-between">
+          <div class="h4">Ingredients</div>
+          <div class="control-options">
+            <button
+              id="ingredients-checklist-toggle"
+              class="
+                btn btn-link
+                text-decoration-none
+                shadow-none
+                hover-opacity-60
+              "
+              style="color: inherit"
+              @click="
+                showChecklist.ingredients = !showChecklist.ingredients;
+                isHidden.ingredients = false;
+              "
+            >
+              <i
+                v-bind:class="{
+                  'fa-list-check': !showChecklist.ingredients,
+                  'fa-list': showChecklist.ingredients,
+                }"
+                class="fa-solid"
+              ></i>
+            </button>
+            <button
+              id="ingredients-toggle"
+              class="
+                btn btn-link
+                text-decoration-none
+                shadow-none
+                hover-opacity-60
+              "
+              style="color: inherit"
+              @click="isHidden.ingredients = !isHidden.ingredients"
+            >
+              <i
+                v-bind:class="{
+                  'fa-angle-down': isHidden.ingredients,
+                  'fa-angle-up': !isHidden.ingredients,
+                }"
+                class="fa-solid"
+              ></i>
+            </button>
+          </div>
+        </div>
+        <div
+          class="section-content p text-left mt-2"
+          v-show="!isHidden.ingredients"
+        >
+          <ul v-show="!showChecklist.ingredients" class="px-3">
+            <li v-for="ingredient in recipe.ingredients" :key="ingredient">
+              {{ ingredient }}
+            </li>
+          </ul>
+          <div v-show="showChecklist.ingredients">
+            <div
+              class="form-check"
+              v-for="ingredient in recipe.ingredients"
+              :key="ingredient"
+            >
+              <input type="checkbox" class="form-check-input" />
+              <label class="form-check-label">{{ unescape(ingredient) }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="recipe-section instructions-section my-2">
+        <div class="section-heading d-flex justify-content-between">
+          <div class="h4">Instructions</div>
+          <div class="control-options">
+            <button
+              id="instructions-toggle"
+              class="
+                btn btn-link
+                text-decoration-none
+                shadow-none
+                hover-opacity-60
+              "
+              style="color: inherit"
+              @click="isHidden.instructions = !isHidden.instructions"
+            >
+              <i
+                v-bind:class="{
+                  'fa-angle-down': isHidden.instructions,
+                  'fa-angle-up': !isHidden.instructions,
+                }"
+                class="fa-solid"
+              ></i>
+            </button>
+          </div>
+        </div>
+        <div
+          class="section-content p text-left mt-2"
+          v-show="!isHidden.instructions"
+        >
+          <ol class="px-3">
+            <li
+              v-for="instruction in recipe.instructions"
+              class="mb-2"
+              :key="instruction.step"
+            >
+              <span class="font-weight-bold" v-if="instruction.name"
+                >{{ instruction.name }}.
+              </span>
+              <span class="instruction-text">{{ instruction.text }} </span>
+              <a v-if="instruction.url" target="_blank" :href="instruction.url"
+                ><i class="fa-solid fa-arrow-right"></i
+              ></a>
+            </li>
+          </ol>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
-let recipe = {
-  id: 1,
-  name: "Baked Coconut Shrimp with Springy Rice and Honey Butter Sauce",
-  author: {
-    name: "Lindsay",
-    url: "https://pinchofyum.com/about",
-  },
-  cookTime: "20m",
-  prepTime: "25m",
-  totalTime: "45m",
-  description:
-    "Perfectly springy baked coconut shrimp piled high on a mountain of steamy pea-speckled and lemony rice and drizzles upon drizzles of a beautiful honey butter sauce. This is exactly the spring vacay you need!\u00a0",
-  tags: ["Dinner", "American", "Bake"],
-  image:
-    "https://pinchofyum.com/wp-content/uploads/Baked-Coconut-Shrimp-Square.jpg",
-  ingredients: [
-    "3/4 cup Chef&#8217;s Cupboard Panko Breadcrumbs",
-    "3/4 cup Baker&#8217;s Corner Coconut Flakes (sweetened or unsweetened, but I prefer sweetened)",
-    "2 eggs, beaten",
-    "1/2 cup flour",
-    "1/2 teaspoon paprika",
-    "1/2 teaspoon salt",
-    "1 pound Fremont Fish Market Jumbo EZ Peel Raw Shrimp, thawed, tails removed (see notes)",
-    "1 cup Specially Selected Jasmine Rice, uncooked",
-    "10-ounce bag of Simply Nature Sweet Peas",
-    "lemon juice and zest",
-    "herbs or greens",
-    "1 clove grated garlic",
-    "2 tablespoons butter",
-    "4 tablespoons melted butter",
-    "2-3 tablespoons honey",
-    "1-2 teaspoons Dijon mustard",
-  ],
-  instructions: [
-    {
-      name: "Prep",
-      text: "Cook the rice according to package directions. (I do this in a pressure cooker)",
-      url: "https://pinchofyum.com/baked-coconut-shrimp#instruction-step-1",
-    },
-    {
-      name: "Toast the Coconut",
-      text: "Preheat the oven to 425 degrees. Place panko and coconut on a baking sheet; toast for 10-15 minutes, stirring occasionally, until nice and golden brown.",
-      url: "https://pinchofyum.com/baked-coconut-shrimp#instruction-step-2",
-    },
-    {
-      name: "Coat the Coconut Shrimp",
-      text: "Make three bowls: one for the flour, paprika, and salt; one for the egg, and one for the toasted coconut. Coat individual shrimp in flour / spice mix, then egg, then press into the panko until the mixture sticks to the shrimp. (I usually do all the shrimp in the flour / spice mix first, and then do the egg / panko dip so it&#8217;s a bit cleaner). Place coated shrimp back on the baking sheet. Spritz or drizzle with oil.",
-      url: "https://pinchofyum.com/baked-coconut-shrimp#instruction-step-3",
-    },
-    {
-      name: "Bake the Coconut Shrimp",
-      text: "Bake shrimp at 425 for 10 minutes.",
-      url: "https://pinchofyum.com/baked-coconut-shrimp#instruction-step-4",
-    },
-    {
-      name: "Finish the Rice",
-      text: "Add peas, lemon zest, herbs, garlic, and butter into the hot rice and gently fluff with a fork to combine. The peas just need to get heated through.",
-      url: "https://pinchofyum.com/baked-coconut-shrimp#instruction-step-5",
-    },
-    {
-      name: "Make the Sauce",
-      text: "Whisk the melted butter with the honey and Dijon mustard. (And add whatever else you like &#8211; red pepper flakes, chili paste, lemon, etc.)",
-      url: "https://pinchofyum.com/baked-coconut-shrimp#instruction-step-6",
-    },
-    {
-      name: "Serve",
-      text: "Serve shrimp with a pile of rice and generously drizzle with the sauce. HELLO! So yummy.",
-      url: "https://pinchofyum.com/baked-coconut-shrimp#instruction-step-7",
-    },
-  ],
-}
+import axios from "axios";
+
+let recipe = {};
 
 export default {
   name: "RecipeView",
-  data: function() {
+  data: function () {
     return {
       recipe,
       isHidden: {
-        description: false,
-      }
-    }
+        description: true,
+        ingredients: true,
+        instructions: true,
+      },
+      showChecklist: {
+        ingredients: false,
+      },
+    };
   },
-}
+  methods: {
+    unescape: function (s) {
+      return decodeURIComponent(s);
+    },
+  },
+  created() {
+    // Simple GET request using axios
+    axios
+      .get(`http://localhost:5000/recipes/${this.$route.params.id}`)
+      .then((response) => {
+        console.log(response);
+        this.recipe = response.data;
+      });
+  },
+};
 </script>
 
 <style>
 #recipe-view {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   color: #0f172a;
+  font: system-ui;
 }
 
 .section-heading {
   border-bottom: 1.5px solid #e5e7eb;
-  font-family: Montserrat, Helvetica, sans-serif;
+  font-family: system-ui, Montserrat, Helvetica, sans-serif;
   font-weight: 500;
+}
+
+.section-content {
+  font-size: 1.1rem;
+}
+
+.recipe-section {
+  padding: 40px inherit 40px inherit !important;
 }
 </style>

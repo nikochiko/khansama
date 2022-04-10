@@ -1,25 +1,50 @@
 <template>
   <div class="container">
+
     <div class="d-flex justify-content-between">
-      <h1 class="text-left heading-font">Your Recipes</h1>
+      <div class="h2 text-left">Your Recipes</div>
+      <a href="/new" class="h1">
+        <i class="fa-solid fa-circle-plus"></i>
+      </a>
     </div>
     <div class="row">
-      <div class="col-xs-12 col-md-6 col-lg-4 rounded-md py-2 recipe-list-item" v-for="recipe in recipes" :key="recipe.id">
-        <div class="recipe-list-item-inner w-100 h-100">
+      <div
+        class="col-xs-12 col-md-6 col-lg-4 rounded-md py-2 recipe-list-item"
+        v-for="recipe in recipes"
+        :key="recipe.id"
+      >
+        <div class="recipe-list-item-inner w-100 h-100 pb-2">
           <a :href="recipeLink(recipe)" class="hover-opacity-60">
             <img :src="recipe.image" class="recipe-list-image twentyone-nine" />
           </a>
-          <div class="d-flex justify-content-between align-items-center">
-            <a :href="recipeLink(recipe)" class="left-flex  py-2 align-middle text-left pr-1 text-truncate h6 mb-0">
+          <div class="d-flex justify-content-between align-items-center px-2">
+            <a
+              :href="recipeLink(recipe)"
+              class="
+                left-flex
+                py-2
+                align-middle
+                text-left
+                pr-1
+                text-truncate
+                h6
+                mb-0
+              "
+            >
               {{ recipe.name }}
             </a>
             <div class="right-flex pl-1 text-right text-muted">
               {{ recipe.totalTime }}
             </div>
           </div>
-          <div class="tags pb-1 d-flex justify-content start">
+          <div class="tags pb-1 d-flex justify-content start px-2">
             <template v-for="tag in recipe.tags">
-              <div class="rounded badge activity-badge mr-1" :style="getStyleForRecipeTag(tag)" :key="tag">
+              <div
+                class="rounded badge activity-badge mr-1"
+                :style="getStyleForRecipeTag(tag)"
+                :key="tag"
+                v-show="tag"
+              >
                 <div class="activity-badge-text">{{ tag }}</div>
               </div>
             </template>
@@ -31,6 +56,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 let recipes = [
   {
     id: 1,
@@ -249,25 +276,32 @@ let recipes = [
 
 export default {
   name: "RecipeListing",
-  data: function() {
+  data: function () {
     return {
       recipes,
-    }
+    };
   },
   methods: {
-    getStyleForRecipeTag: function(tag) {
+    getStyleForRecipeTag: function (tag) {
       console.log(tag);
       let styles = [
         "background-color: #fde68a; color: #f59e0b;",
-        "background-color: rgba(137,76,255,0.1); color: #894cff;"
+        "background-color: rgba(137,76,255,0.1); color: #894cff;",
       ];
       return styles[1];
     },
-    recipeLink: function(recipe) {
-      return `/recipes/${recipe.id}`
-    }
-  }
-}
+    recipeLink: function (recipe) {
+      return `/recipes/${recipe.id}`;
+    },
+  },
+  created() {
+    // Simple GET request using axios
+    axios.get("http://localhost:5000/recipes").then((response) => {
+      console.log(response);
+      this.recipes = response.data;
+    });
+  },
+};
 </script>
 
 <style>
@@ -304,6 +338,11 @@ export default {
   /* background-color: rgb(31 41 55); */
 }
 
+.recipe-list-item-inner {
+  border-radius: 0.75rem;
+  background-color: rgba(241, 245, 249, 0.6);
+}
+
 .background-glass {
   /* From https://css.glass */
   background: rgba(0, 0, 0, 0.2);
@@ -319,34 +358,37 @@ export default {
 }
 
 .badge {
-    font-size: 0.875rem;
-    border-radius: 0.25rem;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    background-color: rgba(82,113,137,0.1);
-    color: #527189;
-    display: inline-block;
-    font-weight: 600;
-    line-height: 24px;
-    padding: 0.25rem 0.75rem;
-    text-align: center;
-    vertical-align: baseline;
-    white-space: nowrap;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  background-color: rgba(82, 113, 137, 0.1);
+  color: #527189;
+  display: inline-block;
+  font-weight: 600;
+  line-height: 24px;
+  padding: 0.25rem 0.75rem;
+  text-align: center;
+  vertical-align: baseline;
+  white-space: nowrap;
 }
 
-.activity-badge, .opportunity-preference-badge {
-    align-items: center;
-    display: inline-flex;
-    font-size: 0.8125rem;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.activity-badge,
+.opportunity-preference-badge {
+  align-items: center;
+  display: inline-flex;
+  font-size: 0.8125rem;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.activity-badge .activity-badge-text, .opportunity-preference-badge .activity-badge-text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.activity-badge .activity-badge-text,
+.opportunity-preference-badge .activity-badge-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /*

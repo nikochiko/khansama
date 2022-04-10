@@ -1,21 +1,24 @@
 <template>
-<div id="navbar" class="d-flex justify-content-between align-items-center mb-2">
-  <div class="d-none d-sm-block mb-0 h3 heading-recipes">
-    <a href="/" class="text-decoration-none">Khansama.app</a>
-  </div>
+  <div
+    id="navbar"
+    class="d-flex justify-content-between align-items-center mb-2"
+  >
+    <div class="d-none d-sm-block mb-0 h3 heading-recipes">
+      <a href="/" class="text-decoration-none">Khansama.app</a>
+    </div>
 
-  <div class="d-sm-none font-weight-bold mb-0 h3 heading-recipes">
-    <a href="/" class="text-decoration-none">KH</a>
-  </div>
+    <div class="d-sm-none font-weight-bold mb-0 h3 heading-recipes">
+      <a href="/" class="text-decoration-none">KH</a>
+    </div>
 
-  <input id="search" class="form-control border-0" placeholder="Search" />
-</div>
+    <input id="search" class="form-control border-0" placeholder="Search" />
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'NavBar',
-}
+  name: "NavBar",
+};
 </script>
 
 <style>
@@ -26,7 +29,7 @@ export default {
 }
 
 #navbar .heading-recipes {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: "Josefin Sans", sans-serif;
 }
 
 #search {
