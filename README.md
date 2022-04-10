@@ -17,4 +17,17 @@ home.
 
 This is a web app, but eventually to be made into an
 Android app, since people don't normally bring their 
-laptops into their kitchens.
+laptops into kitchens.
+
+## What does khansama want to do?
+
+* To provide a clean, consistent UI to view recipes from websites that exist already.
+* To allow a user to curate recipes and keep a personal database of sorts.
+* For Indian users, to provide translations of a few common ingredients (cardamom = इलाइची, cinnamon = दालचीनी), recipe procedures (saute = तलें), etc.
+* To allow users to edit the recipes like they would a document.
+
+Maybe, to allow users to share recipes, and even upload and push recipes from directly within the app.
+
+# License
+
+Licensed under MIT license.
