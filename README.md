@@ -25,6 +25,7 @@ laptops into kitchens.
 * To allow a user to curate recipes and keep a personal database of sorts.
 * For Indian users, to provide translations of a few common ingredients (cardamom = इलाइची, cinnamon = दालचीनी), recipe procedures (saute = तलें), etc.
 * To allow users to edit the recipes like they would a document.
+* Not to be the best UI ever, but just one that you'd like to use everyday!
 
 Maybe, to allow users to share recipes, and even upload and push recipes from directly within the app.
 
