@@ -6,7 +6,7 @@ color schemes and layouts are often... disagreeable.
 
 Take [NDTV Good Times](https://food.ndtv.com/) as an example.
 
-> Insert screenshot video example here
+<img width="1320" alt="image" src="https://user-images.githubusercontent.com/37668193/162610449-11be24fe-6935-4d7d-91c3-12b7659ae390.png">
 
 Just look at the ads there! Where is the recipe ma?
 
