@@ -6,11 +6,13 @@
     <div class="row">
       <div class="col-xs-12 col-md-6 col-lg-4 rounded-md py-2 recipe-list-item" v-for="recipe in recipes" :key="recipe.id">
         <div class="recipe-list-item-inner w-100 h-100">
-          <img :src="recipe.image" class="recipe-list-image twentyone-nine" />
+          <a :href="recipeLink(recipe)" class="hover-opacity-60">
+            <img :src="recipe.image" class="recipe-list-image twentyone-nine" />
+          </a>
           <div class="d-flex justify-content-between align-items-center">
-            <div class="left-flex py-2 align-middle text-left pr-1 text-truncate h6 mb-0">
+            <a href="recipeLink(recipe)" class="left-flex py-2 align-middle text-left pr-1 text-truncate h6 mb-0">
               {{ recipe.name }}
-            </div>
+            </a>
             <div class="right-flex pl-1 text-right text-muted">
               {{ recipe.totalTime }}
             </div>
@@ -261,6 +263,9 @@ export default {
       ];
       return styles[1];
     },
+    recipeLink: function(recipe) {
+      return `/recipes/${recipe.id}`
+    }
   }
 }
 </script>

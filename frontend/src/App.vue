@@ -1,30 +1,17 @@
 <template>
   <div id="app">
     <NavBar />
-    <RecipeListing />
+    <router-view/>
   </div>
 </template>
 
 <script>
-import NavBar from "./components/NavBar.vue"
-import RecipeListing from "./components/RecipeListing.vue"
+import NavBar from './components/NavBar.vue'
 
 export default {
   name: "App",
-  components: {
-    NavBar,
-    RecipeListing,
-  },
-  methods: {
-    truncateRecipeName: function(recipeName, length = 50) {
-      if (recipeName.length > length) {
-        return recipeName.slice(0, length-3) + "..."
-      } else {
-        return recipeName
-      }
-    },
-  },
-};
+  components: {NavBar}
+}
 </script>
 
 <style>
@@ -38,5 +25,22 @@ export default {
 
 .heading-font {
   font-family: Montserrat, Lato, Helvetica, sans-serif;
+}
+
+.hover-opacity-60:hover {
+  opacity: 60%;
+}
+
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>

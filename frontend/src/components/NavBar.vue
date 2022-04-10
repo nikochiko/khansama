@@ -1,7 +1,7 @@
 <template>
 <div id="navbar" class="d-flex justify-content-between align-items-center mb-2">
   <div class="d-none d-sm-block mb-0 h3 heading-recipes">
-    Khansama.app
+    <a href="/" class="text-decoration-none">Khansama.app</a>
   </div>
 
   <div class="d-sm-none font-weight-bold mb-0 h3 heading-recipes">
