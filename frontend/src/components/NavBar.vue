@@ -5,7 +5,7 @@
   </div>
 
   <div class="d-sm-none font-weight-bold mb-0 h3 heading-recipes">
-    KH
+    <a href="/" class="text-decoration-none">KH</a>
   </div>
 
   <input id="search" class="form-control border-0" placeholder="Search" />

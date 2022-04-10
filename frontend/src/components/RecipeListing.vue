@@ -10,7 +10,7 @@
             <img :src="recipe.image" class="recipe-list-image twentyone-nine" />
           </a>
           <div class="d-flex justify-content-between align-items-center">
-            <a href="recipeLink(recipe)" class="left-flex py-2 align-middle text-left pr-1 text-truncate h6 mb-0">
+            <a :href="recipeLink(recipe)" class="left-flex  py-2 align-middle text-left pr-1 text-truncate h6 mb-0">
               {{ recipe.name }}
             </a>
             <div class="right-flex pl-1 text-right text-muted">
