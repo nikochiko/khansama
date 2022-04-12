@@ -30,14 +30,6 @@
         <a :href="recipe.url">Link to Original</a>
       </div>
 
-      <div class="my-4">
-        <img
-          :src="recipe.image"
-          class="w-100 rounded"
-          style="max-height: 400px; object-fit: cover"
-        />
-      </div>
-
       <div class="recipe-section description-section my-2">
         <div class="section-heading d-flex justify-content-between">
           <div class="h4">Description</div>
@@ -75,6 +67,21 @@
         <div class="section-heading d-flex justify-content-between">
           <div class="h4">Ingredients</div>
           <div class="control-options">
+            <button
+              id="ingredients-checklist-reset"
+              class="
+                btn btn-link
+                text-decoration-none
+                shadow-none
+                hover-opacity-60
+              "
+              style="color: inherit"
+              @click="resetIngredientsChecklist"
+            >
+              <i
+                class="fa-solid fa-rotate"
+              ></i>
+            </button>
             <button
               id="ingredients-checklist-toggle"
               class="
@@ -133,8 +140,8 @@
               v-for="ingredient in recipe.ingredients"
               :key="ingredient"
             >
-              <input type="checkbox" class="form-check-input" />
-              <label class="form-check-label">{{ unescape(ingredient) }}</label>
+              <input type="checkbox" class="ingredient-checkbox form-check-input" />
+              <label class="form-check-label">{{ ingredient }}</label>
             </div>
           </div>
         </div>
@@ -211,9 +218,12 @@ export default {
     };
   },
   methods: {
-    unescape: function (s) {
-      return decodeURIComponent(s);
-    },
+    resetIngredientsChecklist: function() {
+      let elements = document.getElementsByClassName("ingredient-checkbox")
+      for (const el of elements) {
+        el.checked = false;
+      }
+    }
   },
   created() {
     // Simple GET request using axios

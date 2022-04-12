@@ -54,17 +54,16 @@ def get_recipe_ldjson_from_url(url: str) -> dict:
 
     tags = []
     if "recipeCuisine" in ldjson:
-        tags.append(ldjson["recipeCuisine"])
+        tags.append(string_or_last_element_of_list(ldjson["recipeCuisine"]))
 
     if "cookingMethod" in ldjson:
-        tags.append(ldjson["cookingMethod"])
+        tags.append(string_or_last_element_of_list(ldjson["cookingMethod"]))
 
     if "recipeCategory" in ldjson:
-        tags.append(ldjson["recipeCategory"])
+        tags.append(string_or_last_element_of_list(ldjson["recipeCategory"]))
 
-    image = ldjson.get("image")
-    if isinstance(image, list):
-        image = ldjson["image"][-1]
+    image = ldjson.get("image", "")
+    image = string_or_last_element_of_list(image)
 
     khansified_recipe = {
         "url": url,
@@ -95,6 +94,15 @@ def get_recipe_ldjson_from_url(url: str) -> dict:
     }
 
     return khansified_recipe
+
+
+def string_or_last_element_of_list(l_or_s: Union[str, list[Any]]):
+    if isinstance(l_or_s, list):
+        return string_or_last_element_of_list(l_or_s[-1])
+    elif isinstance(l_or_s, str):
+        return l_or_s
+
+    return l_or_s
 
 
 def get_recipe_ldjson_from_list(
